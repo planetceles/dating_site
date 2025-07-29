@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Profile</title>
+    <meta name="description" content="Find your future love partner, match you heart, match your love, match your soulmate.">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <h2>My Profile</h2>
+    <div id="profileInfo"></div>
+    <script>
+        const userId = localStorage.getItem("userId");
+        fetch(`/profile/${userId}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    const user = data.user;
+                    document.getElementById("profileInfo") .innerHTML = `
+                        <img src="/uploads/${user.photo}" width="100"/>
+                        <p>Username: ${user.username}</p>
+                        <p>Email: ${user.email}</p>
+                        <p>Gender: ${user.gender}</p>
+                        <p>Looking for: ${user.preference}</p>
+                    `;
+                }
+            });
+    </script>
+</body>

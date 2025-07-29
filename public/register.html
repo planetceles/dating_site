@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Match</title>
+    <meta name="description" content="Find your future love partner, match you heart, match your love, match your soulmate.">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="nav-bar">
+  <a href="dashboard.html">Dashboard</a>
+  <a href="view-profile.html">My Profile</a>
+  <a href="matches.html">Matches</a>
+  <a href="messages.html">Messages</a>
+  <a href="#" onclick="logout()">Logout</a>
+</nav>
+
+
+    <div class="form-container">
+        <h2>Create Your Account</h2>
+        <form id="registerform">
+            <input type="text" id="regUsername" placeholder="Username" required>
+            <input type="email" id="regEmail" placeholder="Email" required>
+            <input type="password" id="regPassword" placeholder="Password" required>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("registerform").addEventListener("submit", async (e) => {
+           e.preventDefault();
+           const username = document.getElementById("regUsername").value;
+           const email = document.getElementById("regEmail").value;
+           const password = document.getElementById("regPassword").value;
+
+           const res = await fetch("/register", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ username, email, password})
+           });
+
+           const data = await res.json();
+           alert(data.message);
+        })
+    </script>
+</body>
+
+</html>
